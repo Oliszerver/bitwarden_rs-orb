@@ -25,23 +25,16 @@ jobs:
             rustup run nightly rustc --version --verbose
             rustup run nightly cargo --version --verbose
             rustup run nightly cargo build --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml 
+      - run:
+          name: Test
+          command: rustup run nightly cargo test
       - save_cache:
           key: project-cache
           paths:
             - "~/.cargo"
             - "./target"     
-  test:
-    docker:
-      - image: rust:1
-    environment:
-      HADOLINT_VERSION: 1.17.1
-    steps:
-      - run:
-          name: Test
-          command: rustup run nightly cargo test
 
 workflows:
   build:
     jobs:
       - build
-      - test
