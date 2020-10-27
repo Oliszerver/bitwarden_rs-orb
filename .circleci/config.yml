@@ -49,6 +49,6 @@ workflows:
                       - orb-tools/lint
                       - orb-tools/pack
             - orb-tools/publish:
-                  orb-name: oliszerver/bitwarden_rs
+                  orb-ref: oliszerver/bitwarden_rs@major
                   context: publishing
                   requires: [hold-for-publish]
