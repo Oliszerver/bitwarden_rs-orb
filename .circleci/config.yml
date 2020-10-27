@@ -18,7 +18,9 @@ jobs:
       - run:
           name: Stable Build
           command: |
-            rustup install stable
+            sudo curl -L https://github.com/hadolint/hadolint/releases/download/v$HADOLINT_VERSION/hadolint-$(uname -s)-$(uname -m) -o /usr/local/bin/hadolint
+            sudo chmod +rx /usr/local/bin/hadolint
+            rustup set profile minimal
             rustup run stable rustc --version --verbose
             rustup run stable cargo --version --verbose
             rustup run stable cargo build
