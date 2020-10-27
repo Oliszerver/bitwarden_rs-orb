@@ -50,6 +50,6 @@ workflows:
                       - orb-tools/pack
             - orb-tools/publish:
                   attach-workspace: true
-                  orb-ref: oliszerver/bitwarden_rs@major
+                  orb-ref: oliszerver/bitwarden_rs@1.0.0
                   context: publishing
                   requires: [hold-for-publish]
