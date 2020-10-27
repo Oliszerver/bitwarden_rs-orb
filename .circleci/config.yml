@@ -48,7 +48,7 @@ workflows:
                   type: approval
                   requires:
                       - orb-tools/lint
-                      - orb-tools/pack ~/bitwarden_rs/
+                      - orb-tools/pack
             - orb-tools/publish-dev:
                   orb-name: <namespace>/<orb-name>
                   context: <publishing-context>
