@@ -43,12 +43,12 @@ workflows:
             - build
             - orb-tools/lint
             - orb-tools/pack
-            - hold-for-dev-publish:
+            - hold-for-publish:
                   type: approval
                   requires:
                       - orb-tools/lint
                       - orb-tools/pack
-            - orb-tools/publish-dev:
+            - orb-tools/publish:
                   orb-name: oliszerver/bitwarden_rs
                   context: publishing
-                  requires: [hold-for-dev-publish]
+                  requires: [hold-for-publish]
