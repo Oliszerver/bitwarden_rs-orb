@@ -6,7 +6,7 @@ jobs:
       - image: rust:1
     environment:
       HADOLINT_VERSION: 1.17.1
-    build:
+  build:
     steps:
       - checkout
       - restore_cache:
