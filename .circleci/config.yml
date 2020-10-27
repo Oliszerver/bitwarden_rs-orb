@@ -13,8 +13,7 @@ jobs:
       - run:
           name: Clone project
           command: |
-            git clone --recursive https://github.com/dani-garcia/bitwarden_rs
-            cd bitwarden_rs
+            git clone --recursive https://github.com/dani-garcia/bitwarden_rs /root/project
       - run:
           name: Stable Build
           command: |
