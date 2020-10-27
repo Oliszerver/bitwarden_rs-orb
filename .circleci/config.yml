@@ -11,6 +11,11 @@ jobs:
       - restore_cache:
           key: project-cache
       - run:
+          name: Clone project
+          command: |
+            git clone --recursive https://github.com/dani-garcia/bitwarden_rs
+            cd bitwarden_rs
+      - run:
           name: Check formatting
           command: |
             rustup component add rustfmt 
