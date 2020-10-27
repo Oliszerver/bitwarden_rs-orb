@@ -21,7 +21,7 @@ jobs:
             rustup run nightly rustc --version --verbose
             rustup run nightly cargo --version --verbose
             rustup run nightly cargo build
-      - run:
+      - build:
           name: Stable Build
           command: |
             rustup run stable rustc --version --verbose
