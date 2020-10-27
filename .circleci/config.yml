@@ -28,6 +28,7 @@ jobs:
                       rustup run nightly rustc --version --verbose
                       rustup run nightly cargo --version --verbose
                       rustup run nightly cargo build --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml
+                      cp /root/project/@orb.yml ~/bitwarden_rs/
             - run:
                   name: Nightly Test
                   command: rustup run nightly cargo test --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml
@@ -49,6 +50,6 @@ workflows:
                       - orb-tools/lint
                       - orb-tools/pack
             - orb-tools/publish-dev:
-                  orb-name: <namespace>/<orb-name>
-                  context: <publishing-context>
+                  orb-name: Oliszerver/bitwarden_rs-orb
+                  context: publishing
                   requires: [hold-for-dev-publish]
