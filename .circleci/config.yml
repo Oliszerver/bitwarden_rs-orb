@@ -21,10 +21,10 @@ jobs:
             curl -L https://github.com/hadolint/hadolint/releases/download/v$HADOLINT_VERSION/hadolint-$(uname -s)-$(uname -m) -o /usr/local/bin/hadolint
             chmod +rx /usr/local/bin/hadolint
             rustup set profile minimal
-            rustup toolchain install stable
-            rustup run stable rustc --version --verbose
-            rustup run stable cargo --version --verbose
-            rustup run stable cargo build --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml 
+            rustup toolchain install nightly
+            rustup run nightly rustc --version --verbose
+            rustup run nightly cargo --version --verbose
+            rustup run nightly cargo build --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml 
       - run:
           name: Test
           command: rustup run stable cargo test
