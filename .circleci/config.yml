@@ -24,7 +24,7 @@ jobs:
             rustup toolchain install stable
             rustup run stable rustc --version --verbose
             rustup run stable cargo --version --verbose
-            rustup run stable cargo build --manifest-path ~/bitwarden_rs/Cargo.toml 
+            rustup run stable cargo build --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml 
       - run:
           name: Test
           command: rustup run stable cargo test
