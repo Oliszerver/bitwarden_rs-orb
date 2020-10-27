@@ -5,17 +5,17 @@ jobs:
     docker:
       - image: rust:1
     environment:
-      HADOLINT_VERSION: 1.17.1
+        HADOLINT_VERSION: 1.17.1
     steps:
-      - run:
+        - run:
           name: Clone project
           command: |
             git clone --recursive https://github.com/dani-garcia/bitwarden_rs ~/bitwarden_rs
             cd ~/bitwarden_rs
-      - checkout
-      - restore_cache:
+        - checkout
+        - restore_cache:
           key: project-cache
-      - run:
+        - run:
           name: Nightly Build
           command: |
             curl -L https://github.com/hadolint/hadolint/releases/download/v$HADOLINT_VERSION/hadolint-$(uname -s)-$(uname -m) -o /usr/local/bin/hadolint
@@ -25,10 +25,10 @@ jobs:
             rustup run nightly rustc --version --verbose
             rustup run nightly cargo --version --verbose
             rustup run nightly cargo build --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml 
-      - run:
+        - run:
           name: Nightly Test
           command: rustup run nightly cargo test --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml 
-      - save_cache:
+        - save_cache:
           key: project-cache
           paths:
             - "~/.cargo"
