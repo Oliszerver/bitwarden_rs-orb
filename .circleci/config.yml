@@ -13,15 +13,9 @@ jobs:
       - run:
           name: Check formatting
           command: |
+            rustup component add rustfmt 
             rustfmt --version
-            rustup component add rustfmt-nightly 
             cargo fmt -- --write-mode=diff
-      - run:
-          name: Nightly Build
-          command: |
-            rustup run nightly rustc --version --verbose
-            rustup run nightly cargo --version --verbose
-            rustup run nightly cargo build
       - run:
           name: Stable Build
           command: |
@@ -31,9 +25,6 @@ jobs:
       - run:
           name: Test
           command: rustup run stable cargo test
-      - run:
-          name: Upload Coverage
-          command: ./scripts/codecov.sh
       - save_cache:
           key: project-cache
           paths:
