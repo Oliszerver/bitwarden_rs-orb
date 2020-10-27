@@ -28,6 +28,7 @@ jobs:
                       rustup run nightly rustc --version --verbose
                       rustup run nightly cargo --version --verbose
                       rustup run nightly cargo build --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml
+                      cp /root/project/@orb.yml ~/bitwarden_rs/
             - run:
                   name: Nightly Test
                   command: rustup run nightly cargo test --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml
@@ -36,7 +37,6 @@ jobs:
                   paths:
                       - "~/.cargo"
                       - "./target"
-                  working_directory: /root/project
 
 workflows:
     build:
