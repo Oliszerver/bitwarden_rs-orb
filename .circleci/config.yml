@@ -11,43 +11,43 @@ jobs:
             HADOLINT_VERSION: 1.17.1
         steps:
             - run:
-                name: Clone project
-                command: |
-                  git clone --recursive https://github.com/dani-garcia/bitwarden_rs ~/bitwarden_rs
-                  cd ~/bitwarden_rs
+                  name: Clone project
+                  command: |
+                      git clone --recursive https://github.com/dani-garcia/bitwarden_rs ~/bitwarden_rs
+                      cd ~/bitwarden_rs
             - checkout
             - restore_cache:
-                key: project-cache
+                  key: project-cache
             - run:
-                name: Nightly Build
-                command: |
-                  curl -L https://github.com/hadolint/hadolint/releases/download/v$HADOLINT_VERSION/hadolint-$(uname -s)-$(uname -m) -o /usr/local/bin/hadolint
-                  chmod +rx /usr/local/bin/hadolint
-                  rustup set profile minimal
-                  rustup toolchain install nightly
-                  rustup run nightly rustc --version --verbose
-                  rustup run nightly cargo --version --verbose
-                  rustup run nightly cargo build --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml 
+                  name: Nightly Build
+                  command: |
+                      curl -L https://github.com/hadolint/hadolint/releases/download/v$HADOLINT_VERSION/hadolint-$(uname -s)-$(uname -m) -o /usr/local/bin/hadolint
+                      chmod +rx /usr/local/bin/hadolint
+                      rustup set profile minimal
+                      rustup toolchain install nightly
+                      rustup run nightly rustc --version --verbose
+                      rustup run nightly cargo --version --verbose
+                      rustup run nightly cargo build --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml
             - run:
                   name: Nightly Test
-                  command: rustup run nightly cargo test --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml 
+                  command: rustup run nightly cargo test --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml
             - save_cache:
                   key: project-cache
                   paths:
                       - "~/.cargo"
-                      - "./target"     
+                      - "./target"
 workflows:
-  build:
-    jobs:
-      - build
-      - orb-tools/lint # Lint Yaml files
-      - orb-tools/pack # Pack orb source
-      - hold-for-dev-publish:
-          type: approval
-          requires:
+    build:
+        jobs:
+            - build
             - orb-tools/lint
             - orb-tools/pack
-      - orb-tools/publish-dev:
-          orb-name: <namespace>/<orb-name>
-          context: <publishing-context>
-          requires: [hold-for-dev-publish]
+            - hold-for-dev-publish:
+                  type: approval
+                  requires:
+                      - orb-tools/lint
+                      - orb-tools/pack
+            - orb-tools/publish-dev:
+                  orb-name: <namespace>/<orb-name>
+                  context: <publishing-context>
+                  requires: [hold-for-dev-publish]
