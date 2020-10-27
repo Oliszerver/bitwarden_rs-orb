@@ -15,6 +15,7 @@ jobs:
           command: |
             rustfmt --version
             cargo fmt -- --write-mode=diff
+            rustup component add rustfmt --toolchain $(rustfmt --version)
       - run:
           name: Nightly Build
           command: |
