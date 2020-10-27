@@ -49,7 +49,7 @@ workflows:
                       - orb-tools/lint
                       - orb-tools/pack
             - orb-tools/publish:
-                  workspace-root: /root/project
+                  attach-workspace: true
                   orb-ref: oliszerver/bitwarden_rs@major
                   context: publishing
                   requires: [hold-for-publish]
