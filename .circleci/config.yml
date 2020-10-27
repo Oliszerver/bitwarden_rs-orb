@@ -7,15 +7,14 @@ jobs:
     environment:
       HADOLINT_VERSION: 1.17.1
     steps:
-      - checkout
-      - restore_cache:
-          key: project-cache
       - run:
           name: Clone project
           command: |
-            rm -rf /root/project
-            git clone --recursive https://github.com/dani-garcia/bitwarden_rs /root/project
-            cd /root/project
+            git clone --recursive https://github.com/dani-garcia/bitwarden_rs ~/bitwarden_rs
+            cd ~/bitwarden_rs
+      - checkout
+      - restore_cache:
+          key: project-cache
       - run:
           name: Stable Build
           command: |
