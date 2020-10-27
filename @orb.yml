@@ -1,0 +1,11 @@
+version: 2.1
+
+description: >
+  Used for building bitwarden-rs quickly
+
+display:
+  home_url: "https://github.com/Oliszerver/"
+  source_url: "https://github.com/Oliszerver/bitwarden_rs-orb/"
+
+orbs:
+  orb-tools: circleci/orb-tools@10.0
