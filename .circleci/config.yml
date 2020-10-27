@@ -28,6 +28,8 @@ jobs:
                       rustup run nightly rustc --version --verbose
                       rustup run nightly cargo --version --verbose
                       rustup run nightly cargo build --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml
+                      pwd
+                      ls
             - run:
                   name: Nightly Test
                   command: rustup run nightly cargo test --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml
@@ -46,7 +48,7 @@ workflows:
                   type: approval
                   requires:
                       - orb-tools/lint
-                      - orb-tools/pack
+                      - orb-tools/pack ~/bitwarden_rs/
             - orb-tools/publish-dev:
                   orb-name: <namespace>/<orb-name>
                   context: <publishing-context>
