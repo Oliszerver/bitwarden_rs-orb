@@ -4,27 +4,37 @@ jobs:
   test:
     docker:
       - image: rust:1
+    environment:
+      HADOLINT_VERSION: 1.17.1
     steps:
       - checkout
-      - run:
-          name: Version information
-          command: rustc --version; cargo --version; rustup --version
-      - run:
-          name: Calculate dependencies
-          command: cargo generate-lockfile
       - restore_cache:
-          keys:
-            - v4-cargo-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
+          key: project-cache
       - run:
-          name: Build all targets
-          command: cargo build --all --all-targets
+          name: Check formatting
+          command: |
+            rustfmt --version
+            cargo fmt -- --write-mode=diff
+      - run:
+          name: Nightly Build
+          command: |
+            rustup run nightly rustc --version --verbose
+            rustup run nightly cargo --version --verbose
+            rustup run nightly cargo build
+      - run:
+          name: Stable Build
+          command: |
+            rustup run stable rustc --version --verbose
+            rustup run stable cargo --version --verbose
+            rustup run stable cargo build
+      - run:
+          name: Test
+          command: rustup run stable cargo test
+      - run:
+          name: Upload Coverage
+          command: ./scripts/codecov.sh
       - save_cache:
+          key: project-cache
           paths:
-            - /usr/local/cargo/registry
-            - target/debug/.fingerprint
-            - target/debug/build
-            - target/debug/deps
-          key: v4-cargo-cache-{{ arch }}-{{ checksum "Cargo.lock" }}
-      - run:
-          name: Run all tests
-          command: cargo test --all
+            - "~/.cargo"
+            - "./target"
