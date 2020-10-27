@@ -11,7 +11,7 @@ jobs:
             HADOLINT_VERSION: 1.17.1
         steps:
             - run:
-                  name: Clone project
+                  name: Clone Project
                   command: |
                       git clone --recursive https://github.com/dani-garcia/bitwarden_rs ~/bitwarden_rs
                   working_directory: ~/bitwarden_rs
