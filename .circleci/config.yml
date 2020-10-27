@@ -16,12 +16,6 @@ jobs:
             git clone --recursive https://github.com/dani-garcia/bitwarden_rs
             cd bitwarden_rs
       - run:
-          name: Check formatting
-          command: |
-            rustup component add rustfmt 
-            rustfmt --version
-            cargo fmt -- --write-mode=diff
-      - run:
           name: Stable Build
           command: |
             rustup run stable rustc --version --verbose
