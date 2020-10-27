@@ -16,7 +16,7 @@ jobs:
       - restore_cache:
           key: project-cache
       - run:
-          name: Stable Build
+          name: Nightly Build
           command: |
             curl -L https://github.com/hadolint/hadolint/releases/download/v$HADOLINT_VERSION/hadolint-$(uname -s)-$(uname -m) -o /usr/local/bin/hadolint
             chmod +rx /usr/local/bin/hadolint
