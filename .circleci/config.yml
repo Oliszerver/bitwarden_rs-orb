@@ -36,11 +36,12 @@ jobs:
                   paths:
                       - "~/.cargo"
                       - "./target"
+                  working_directory: /root/project
+
 workflows:
     build:
         jobs:
             - build
-            working_directory: /root/project
             - orb-tools/lint
             - orb-tools/pack
             - hold-for-dev-publish:
