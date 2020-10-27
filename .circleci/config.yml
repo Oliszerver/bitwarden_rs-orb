@@ -27,7 +27,7 @@ jobs:
             rustup run nightly cargo build --features postgresql --manifest-path ~/bitwarden_rs/Cargo.toml 
       - run:
           name: Test
-          command: rustup run nightly cargo test
+          command: rustup run nightly cargo test --manifest-path ~/bitwarden_rs/Cargo.toml 
       - save_cache:
           key: project-cache
           paths:
